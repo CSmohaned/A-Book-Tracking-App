@@ -19,7 +19,7 @@ const Shelf = ({item,updateShelf,status}) => {
           backgroundImage: `url(${item.imageLinks.thumbnail})`,}}>
         </div>
         <div className="book-shelf-changer">
-         <select  onChange={(e)=> updateShelf(item,e.target.value)} defaultValue={item.shelf}>
+         <select  onChange={(e)=> updateShelf(item,e.target.value)} defaultValue={item.shelf || "none"}>
           <option>
               {status ? 'Move to...':'Added to...'}
           </option>
@@ -31,7 +31,7 @@ const Shelf = ({item,updateShelf,status}) => {
         </div>
        </div>
        <div className="book-title">{item.title}</div>
-        <div className="book-authors">{item.subtitle}</div>
+        <div className="book-authors">{item.authors}</div>
        </div>
     </li>
     </>

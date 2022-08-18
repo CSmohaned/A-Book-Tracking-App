@@ -175,3 +175,16 @@ body,
   text-align: center;
   font-size: 0.8em;
 }
+.notPage {
+  display: flex;
+  flex-direction: row;
+  justify-content:center;
+  align-items: center;
+  text-align:center;
+}
+.notPage p {
+  color: black;
+  text-align: center;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 10rem;
+}

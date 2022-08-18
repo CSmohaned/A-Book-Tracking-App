@@ -1,9 +1,10 @@
+import * as BooksApi from './BooksAPI';
+import { useState,useEffect } from "react";
 import "./App.css";
 import {Route,Routes} from "react-router-dom";
 import Home from "./pages/Home";
 import Search from "./pages/Search";
-import { useState,useEffect } from "react";
-import * as BooksApi from './BooksAPI';
+import NotFound from './components/NotFound';
 
 function App() {
   const [books, setBooks] = useState([]);
@@ -26,8 +27,9 @@ function App() {
 
   return (
     <Routes>
+      <Route path="*" element={<NotFound/>}/>
       <Route exact path='/' element={<Home updateShelf={updateShelf} books={books}/>}/>
-      <Route path='/search' element={<Search updateShelf={updateShelf} mybooks={mybooks}/>}/>
+      <Route path='/search' element={<Search updateShelf={updateShelf} mybooks={mybooks}/>}/>    
     </Routes>
      );
 }
