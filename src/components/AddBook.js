@@ -45,7 +45,7 @@ const AddBook = ({books,updateShelf,mybooks}) => {
        </div>
        <div className="book-shelf-changer">
         <select onChange={(e)=> updateShelf(item,e.target.value)} defaultValue="none">
-         <option value="none">
+         <option>
             Add to...
          </option>
          <option value="currentlyReading">
@@ -53,6 +53,7 @@ const AddBook = ({books,updateShelf,mybooks}) => {
          </option>
          <option value="wantToRead">Want to Read</option>
          <option value="read">Read</option>
+         <option value="none">None</option>
         </select>
        </div>
      </div>
