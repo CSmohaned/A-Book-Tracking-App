@@ -2,20 +2,18 @@ import {Link} from 'react-router-dom';
 import { useState,useEffect} from 'react';
 import AddBook from '../components/AddBook';
 import * as BooksApi from '../BooksAPI';
+import debounce from 'lodash.debounce';
 
-const Search = () => {
+const Search = ({updateShelf,mybooks,}) => {
   const [search, setSearch] = useState('');
   const [books, setBooks] = useState([]);
-  const [mybooks, setMyBooks] = useState([]);
   const [status, setStatus] = useState(false);
-  const updateShelf = async (book,shelf)=> {
-    await BooksApi.update(book,shelf);
-  }
 
   useEffect(() => {
     setStatus(true);
     const searchBook = async (book)=> {
-      await BooksApi.search(book).then((res)=> setBooks(res) );
+    const debouncedSave = debounce(() =>  BooksApi.search(book).then((res)=> setBooks(res) ), 1000);
+		debouncedSave();
     }
     if(search.length > 0) {
       searchBook(search);
@@ -24,14 +22,6 @@ const Search = () => {
     }
     return () => setStatus(false);
   },[search,status]);
-
-  useEffect(() => {
-    const getAllBooks = async ()=> {
-      const response = await BooksApi.getAll();
-      setMyBooks(response);
-    }
-    getAllBooks();
-  }, []);
 
   return (
     <>
@@ -56,7 +46,7 @@ const Search = () => {
       <ol className="books-grid"></ol>
     </div>
   </div>
-  <AddBook books={books} mybooks={mybooks} updateShelf={updateShelf}/>
+  <AddBook books={books} mybooks={mybooks} updateShelf={updateShelf} />
   </>
   )
 }

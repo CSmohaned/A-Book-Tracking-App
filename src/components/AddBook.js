@@ -1,70 +1,24 @@
+import Shelf from "./Shelf";
+import PropTypes from 'prop-types';
 
 const AddBook = ({books,updateShelf,mybooks}) => {
   return (
    <div className="bookshelf-books">
     <ol className="books-grid" >
       {books.length > 0 ? books.map((item)=> mybooks.filter((book)=> book.id === item.id).length > 0 ? 
-      <li key={item.id}>
-       <div className="book" >
-        <div className="book-top">
-         <div
-           className="book-cover"
-           style={{
-           width: 128,
-           height: 193,
-           backgroundImage: `url(${mybooks.filter((book)=> book.id === item.id)[0].imageLinks && mybooks.filter((book)=> book.id === item.id)[0].imageLinks.smallThumbnail })`,}}>
-         </div>
-         <div className="book-shelf-changer">
-          <select onChange={(e)=> updateShelf(item,e.target.value)} defaultValue={mybooks.filter((book)=> book.id === item.id)[0].shelf}>
-           <option value="none" disabled>
-              Move to...
-           </option>
-           <option value="currentlyReading">
-              Currently Reading
-            </option>
-            <option value="wantToRead">Want to Read</option>
-            <option value="read">Read</option>
-            <option value="none">None</option>
-          </select>
-        </div>
-      </div>
-      <div className="book-title">{mybooks.filter((book)=> book.id === item.id)[0].title}</div>
-       <div className="book-authors">{mybooks.filter((book)=> book.id === item.id)[0].subtitle}</div>
-      </div>
-    </li>
+      <Shelf item={mybooks.filter((book)=> book.id === item.id)[0]} updateShelf={updateShelf} status={true} key={mybooks.filter((book)=> book.id === item.id)[0].id}/>
     :
-    <li key={item.id}>
-     <div className="book" >
-      <div className="book-top">
-       <div
-         className="book-cover"
-         style={{
-         width: 128,
-         height: 193,
-         backgroundImage: `url(${item.imageLinks && item.imageLinks.smallThumbnail})`,}}>
-       </div>
-       <div className="book-shelf-changer">
-        <select onChange={(e)=> updateShelf(item,e.target.value)} defaultValue="none">
-         <option>
-            Add to...
-         </option>
-         <option value="currentlyReading">
-            Currently Reading
-         </option>
-         <option value="wantToRead">Want to Read</option>
-         <option value="read">Read</option>
-         <option value="none">None</option>
-        </select>
-       </div>
-     </div>
-     <div className="book-title">{item.title}</div>
-      <div className="book-authors">{item.subtitle}</div>
-     </div>
-   </li>
+      <Shelf item={item} updateShelf={updateShelf} status={false} key={item.id}/>
     ): <p>Soory!... No Books To Show</p>}
   </ol> 
  </div>       
  )
+}
+
+AddBook.propTypes = {
+  books: PropTypes.array,
+  updateShelf: PropTypes.func,
+  mybooks: PropTypes.array
 }
 
 export default AddBook;
