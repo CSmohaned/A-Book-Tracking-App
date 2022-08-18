@@ -16,7 +16,7 @@ const Shelf = ({item,updateShelf,status}) => {
           style={{
           width: 128,
           height: 192,
-          backgroundImage: `url(${item.imageLinks.thumbnail})`,}}>
+          backgroundImage: `url(${item.imageLinks ? item.imageLinks.thumbnail : ''})`,}}>
         </div>
         <div className="book-shelf-changer">
          <select  onChange={(e)=> updateShelf(item,e.target.value)} defaultValue={item.shelf || "none"}>
